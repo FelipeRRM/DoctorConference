@@ -46,6 +46,10 @@ public class User extends Model implements Serializable {
         return new Select().from(User.class).where("User_Name = ?", userName).executeSingle();
     }
 
+    public static User getUser(int id){
+        return new Select().from(User.class).where("Id = ?", id).executeSingle();
+    }
+
     public String getName() {
         return name;
     }

@@ -17,6 +17,7 @@ import android.widget.EditText;
 import com.feliperrm.doctororganizer.Models.User;
 import com.feliperrm.doctororganizer.R;
 import com.feliperrm.doctororganizer.Utils.Geral;
+import com.feliperrm.doctororganizer.Utils.Singleton;
 import com.github.javiersantos.bottomdialogs.BottomDialog;
 
 import butterknife.ButterKnife;
@@ -44,8 +45,15 @@ public class LoginActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login);
-        ButterKnife.inject(this);
+        if(Singleton.getSingleton().getLoggedUser() == null) {
+            setContentView(R.layout.activity_login);
+            ButterKnife.inject(this);
+        }
+        else{
+            Intent next = new Intent(LoginActivity.this, MainActivity.class);
+            next.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            startActivity(next);
+        }
 
     }
 
@@ -89,6 +97,7 @@ public class LoginActivity extends BaseActivity {
                                 })
                                 .show();
                     } else if (user.getPassword().equals(Geral.toMD5(etPassword.getText().toString()))) {
+                        Singleton.getSingleton().setLoggedUser(user);
                         Explode explode = new Explode();
                         explode.setDuration(500);
                         getWindow().setExitTransition(explode);

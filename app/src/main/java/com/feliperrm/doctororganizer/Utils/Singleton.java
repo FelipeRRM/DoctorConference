@@ -1,5 +1,7 @@
 package com.feliperrm.doctororganizer.Utils;
 
+import com.activeandroid.ActiveAndroid;
+import com.activeandroid.query.Select;
 import com.feliperrm.doctororganizer.Models.User;
 import com.google.gson.Gson;
 
@@ -8,18 +10,31 @@ import com.google.gson.Gson;
  */
 public class Singleton {
     User loggedUser;
-    private static final String LOGGED_USER_KEY  = "loggedUserKey";
+
+    Integer loggedUserId;
+    private static final String LOGGED_USER_ID_KEY = "loggeduseridkey";
+
+    private static final int NO_USER_INT  = -1;
 
 
     public User getLoggedUser() {
-        if(loggedUser==null)
-            loggedUser = new Gson().fromJson(Geral.loadSharedPreference(MyApp.getContext(),LOGGED_USER_KEY, new Gson().toJson(new User())), User.class);
+        if(loggedUser==null) {
+            loggedUserId = Integer.valueOf(Geral.loadSharedPreference(MyApp.getContext(), LOGGED_USER_ID_KEY, String.valueOf(NO_USER_INT)));
+            if(loggedUserId != NO_USER_INT)
+                loggedUser = User.getUser(loggedUserId);
+        }
         return loggedUser;
     }
 
     public void setLoggedUser(User loggedUser) {
-        Geral.salvarSharedPreference(MyApp.getContext(), LOGGED_USER_KEY, new Gson().toJson(loggedUser));
+        Geral.salvarSharedPreference(MyApp.getContext(), LOGGED_USER_ID_KEY, String.valueOf(loggedUser.getId()));
         this.loggedUser = loggedUser;
+    }
+
+    public Singleton() {
+        loggedUserId = Integer.valueOf(Geral.loadSharedPreference(MyApp.getContext(), LOGGED_USER_ID_KEY, String.valueOf(NO_USER_INT)));
+        if(loggedUserId != NO_USER_INT)
+            loggedUser = User.getUser(loggedUserId);
     }
 
     private static Singleton singleton;

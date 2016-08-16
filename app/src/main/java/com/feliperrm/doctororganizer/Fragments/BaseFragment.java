@@ -21,6 +21,4 @@ public abstract class BaseFragment extends Fragment {
 
     }
 
-    public abstract void searchText(String text);
-
 }

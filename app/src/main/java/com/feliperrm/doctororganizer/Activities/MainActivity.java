@@ -1,11 +1,14 @@
 package com.feliperrm.doctororganizer.Activities;
 
 import android.support.annotation.IdRes;
+import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.FrameLayout;
 
+import com.feliperrm.doctororganizer.Fragments.CalendarFragment;
 import com.feliperrm.doctororganizer.R;
 import com.roughike.bottombar.BottomBar;
 import com.roughike.bottombar.BottomBarTab;
@@ -15,6 +18,8 @@ import com.roughike.bottombar.OnTabClickListener;
 public class MainActivity extends BaseActivity {
 
     private BottomBar mBottomBar;
+    private FrameLayout frameForFragments;
+    Fragment calendarFragment;
 
 
     @Override
@@ -27,16 +32,19 @@ public class MainActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         mBottomBar = BottomBar.attach(this, savedInstanceState);
+        mBottomBar.noTopOffset();
         findViews();
         setUpViews();
     }
 
     private void findViews(){
-
+        frameForFragments = (FrameLayout) findViewById(R.id.frameForFragments);
     }
 
     private void setUpViews(){
         setUpBottomBar();
+        calendarFragment = new CalendarFragment();
+        getSupportFragmentManager().beginTransaction().add(R.id.frameForFragments, calendarFragment).commitAllowingStateLoss();
     }
 
     private void setUpBottomBar(){
