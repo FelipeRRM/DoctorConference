@@ -1,0 +1,19 @@
+<resources>
+    <string name="app_name">MaterialLogin</string>
+    <string name="login_success">login success</string>
+    <string name="login">LOGIN</string>
+    <string name="Username">Username</string>
+    <string name="Password">Password</string>
+    <string name="forgot_your_password">Forgot your password ?</string>
+    <string name="go">GO</string>
+    <string name="repeat_password">Repeat Password</string>
+    <string name="next">NEXT</string>
+    <string name="register">REGISTER</string>
+    <string name="user_not_found_title">User Not Found!</string>
+    <string name="dismiss">Dismiss</string>
+    <string name="incorrect_password_title">Incorrect Password!</string>
+    <string name="incorrect_password">The given password is incorrect!</string>
+    <string name="cant_be_empty">This field can\'t be empty!</string>
+    <string name="pwd_dont_match">Passwords don\'t match!</string>
+    <string name="user_exists">User Already Exists!</string>
+</resources>
