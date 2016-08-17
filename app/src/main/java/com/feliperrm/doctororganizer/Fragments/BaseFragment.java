@@ -12,13 +12,13 @@ import com.labo.kaji.fragmentanimations.PushPullAnimation;
  */
 public abstract class BaseFragment extends Fragment {
 
-    @Override
+    /*@Override
     public Animation onCreateAnimation(int transit, boolean enter, int nextAnim) {
         if(enter)
             return PushPullAnimation.create(PushPullAnimation.LEFT, enter, 500);
         else
             return MoveAnimation.create(MoveAnimation.DOWN, enter, 750);
 
-    }
+    } */
 
 }

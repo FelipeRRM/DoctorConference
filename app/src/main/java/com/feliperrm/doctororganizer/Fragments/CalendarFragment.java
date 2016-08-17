@@ -3,17 +3,23 @@ package com.feliperrm.doctororganizer.Fragments;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CalendarView;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.feliperrm.doctororganizer.Activities.MainActivity;
 import com.feliperrm.doctororganizer.R;
+import com.feliperrm.doctororganizer.Utils.Geral;
 import com.p_v.flexiblecalendar.FlexibleCalendarView;
 import com.p_v.flexiblecalendar.entity.Event;
+import com.p_v.flexiblecalendar.entity.SelectedDateItem;
 import com.p_v.flexiblecalendar.view.BaseCellView;
 
 import java.util.ArrayList;
@@ -30,7 +36,9 @@ public class CalendarFragment extends BaseFragment {
     ImageView leftArrow;
     ImageView rightArrow;
     TextView monthTextView;
-    Button resetButton;
+    LinearLayout calendarTopBar;
+    RecyclerView recyclerView;
+    TextView selectedDateTxt;
 
     public CalendarFragment() {
         // Required empty public constructor
@@ -52,19 +60,21 @@ public class CalendarFragment extends BaseFragment {
         leftArrow = (ImageView) v.findViewById(R.id.left_arrow);
         rightArrow = (ImageView) v.findViewById(R.id.right_arrow);
         monthTextView = (TextView) v.findViewById(R.id.month_text_view);
-        resetButton = (Button) v.findViewById(R.id.reset_button);
+        calendarTopBar = (LinearLayout) v.findViewById(R.id.calendarTopBar);
+        recyclerView = (RecyclerView) v.findViewById(R.id.recyclerViewConferencesCalendar);
+        selectedDateTxt = (TextView) v.findViewById(R.id.selectedDateTxt);
     }
 
     private void setUpViews(){
         customizeCalendar();
+        recyclerView.setLayoutManager(new LinearLayoutManager(getContext(),LinearLayoutManager.VERTICAL, false));
     }
 
     private void customizeCalendar(){
         calendarView.setStartDayOfTheWeek(Calendar.MONDAY);
+        calendarTopBar.setBackgroundColor(MainActivity.TAB1_COLOR);
 
-
-
-        Calendar cal = Calendar.getInstance();
+        final Calendar cal = Calendar.getInstance();
         cal.set(calendarView.getSelectedDateItem().getYear(), calendarView.getSelectedDateItem().getMonth(), 1);
         monthTextView.setText(cal.getDisplayName(Calendar.MONTH,
                 Calendar.LONG, Locale.ENGLISH) + " " + calendarView.getSelectedDateItem().getYear());
@@ -89,10 +99,10 @@ public class CalendarFragment extends BaseFragment {
                 cal.set(year, month, 1);
                 monthTextView.setText(cal.getDisplayName(Calendar.MONTH,
                         Calendar.LONG, Locale.ENGLISH) + " " + year);
-
+                calendarView.onDateClick(new SelectedDateItem(year,month,1));
             }
         });
-        calendarView.setShowDatesOutsideMonth(true);
+        calendarView.setShowDatesOutsideMonth(false);
 
         calendarView.setCalendarView(new FlexibleCalendarView.CalendarView() {
             @Override
@@ -100,7 +110,7 @@ public class CalendarFragment extends BaseFragment {
                 BaseCellView cellView = (BaseCellView) convertView;
                 if (cellView == null) {
                     LayoutInflater inflater = LayoutInflater.from(getContext());
-                    cellView = (BaseCellView) inflater.inflate(R.layout.calendar3_date_cell_view, null);
+                    cellView = (BaseCellView) inflater.inflate(R.layout.calendar1_date_cell_view, null);
                 }
                 return cellView;
             }
@@ -111,8 +121,8 @@ public class CalendarFragment extends BaseFragment {
                 if (cellView == null) {
                     LayoutInflater inflater = LayoutInflater.from(getContext());
                     cellView = (BaseCellView) inflater.inflate(R.layout.calendar3_week_cell_view, null);
-                    cellView.setBackgroundColor(getResources().getColor(android.R.color.holo_purple));
-                    cellView.setTextColor(getResources().getColor(android.R.color.holo_orange_light));
+                    cellView.setBackgroundColor(MainActivity.TAB1_COLOR);
+                    cellView.setTextColor(getResources().getColor(android.R.color.white));
                     cellView.setTextSize(18);
                 }
                 return cellView;
@@ -124,12 +134,15 @@ public class CalendarFragment extends BaseFragment {
             }
         });
 
-        resetButton.setOnClickListener(new View.OnClickListener() {
+        calendarView.setOnDateClickListener(new FlexibleCalendarView.OnDateClickListener() {
             @Override
-            public void onClick(View v) {
-                calendarView.goToCurrentMonth();
+            public void onDateClick(int year, int month, int day) {
+                selectedDateTxt.setText(getString(R.string.conferences_for) + " " + Geral.getMonth(month) + " "+ day + ", " +  year);
             }
         });
+
+        calendarView.onDateClick(new SelectedDateItem(Geral.getTodayYear(), Geral.getTodayMonth(), Geral.getDayOfMonth()));
+
     }
 
 

@@ -1,5 +1,6 @@
 package com.feliperrm.doctororganizer.Activities;
 
+import android.graphics.Color;
 import android.support.annotation.IdRes;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
@@ -10,6 +11,7 @@ import android.widget.FrameLayout;
 
 import com.feliperrm.doctororganizer.Fragments.CalendarFragment;
 import com.feliperrm.doctororganizer.R;
+import com.feliperrm.doctororganizer.Utils.MyApp;
 import com.roughike.bottombar.BottomBar;
 import com.roughike.bottombar.BottomBarTab;
 import com.roughike.bottombar.OnMenuTabClickListener;
@@ -20,6 +22,10 @@ public class MainActivity extends BaseActivity {
     private BottomBar mBottomBar;
     private FrameLayout frameForFragments;
     Fragment calendarFragment;
+
+    public static final int TAB1_COLOR = ContextCompat.getColor(MyApp.getContext(), R.color.colorAccent);
+    public static final int TAB2_COLOR = 0xFF5D4037;
+    public static final int TAB3_COLOR = Color.parseColor("#7B1FA2");
 
 
     @Override
@@ -70,9 +76,9 @@ public class MainActivity extends BaseActivity {
 
         // Setting colors for different tabs when there's more than three of them.
         // You can set colors for tabs in three different ways as shown below.
-        mBottomBar.mapColorForTab(0, ContextCompat.getColor(this, R.color.colorAccent));
-        mBottomBar.mapColorForTab(1, 0xFF5D4037);
-        mBottomBar.mapColorForTab(2, "#7B1FA2");
+        mBottomBar.mapColorForTab(0, TAB1_COLOR);
+        mBottomBar.mapColorForTab(1, TAB2_COLOR);
+        mBottomBar.mapColorForTab(2, TAB3_COLOR);
 //        mBottomBar.mapColorForTab(3, "#FF5252");
 //        mBottomBar.mapColorForTab(4, "#FF9800");
 

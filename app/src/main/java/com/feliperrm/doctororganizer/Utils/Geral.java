@@ -106,7 +106,9 @@ public class Geral {
     }
 
     public static String getMonth(int month) {
-        return new DateFormatSymbols().getMonths()[month];
+        String str = new DateFormatSymbols().getMonths()[month];
+        str = str.subSequence(0,1).toString().toUpperCase() + str.substring(1);
+        return str;
     }
 
     public static String getDatedeHojeAmericanoComHorario(){
@@ -378,5 +380,6 @@ public class Geral {
             }
         }
     }
+
 
 }

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:p-v="http://schemas.android.com/apk/res-auto">
+    <item p-v:state_date_regular="true"
+        android:color="@android:color/black"/>
+    <item p-v:state_date_today="true"
+        android:color="@android:color/holo_red_dark"/>
+    <item p-v:state_date_selected="true"
+        android:color="@android:color/black"/>
+</selector>
