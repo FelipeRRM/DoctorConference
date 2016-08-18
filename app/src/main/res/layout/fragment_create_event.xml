@@ -1,0 +1,118 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/popup_parent_layout">
+
+
+    <LinearLayout
+        android:clickable="true"
+        android:id="@+id/popup_black_bg"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#b9000000"/>
+
+    <RelativeLayout
+        android:layout_marginTop="70dp"
+        android:layout_marginBottom="70dp"
+        android:id="@+id/popup_main_layout"
+        android:clickable="true"
+        android:layout_width="290dp"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:background="@android:color/white"
+        android:elevation="10dp"
+        >
+
+
+        <LinearLayout
+            android:background="@android:color/white"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/suggestingText"
+                android:gravity="center"
+                android:layout_gravity="center"
+                android:text="@string/suggesting_conference"
+                android:layout_margin="10dp"
+                android:textSize="17sp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <android.support.design.widget.TextInputLayout
+                android:layout_marginTop="15dp"
+                android:textColor="@android:color/black"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <EditText
+                    android:padding="4dp"
+                    android:layout_margin="10dp"
+                    android:textColorHint="@android:color/black"
+                    android:hint="@string/subject"
+                    android:textColor="@android:color/black"
+                    android:id="@+id/editSubject"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="textPersonName"
+                    android:background="@drawable/selector_bg_edit"
+                    />
+            </android.support.design.widget.TextInputLayout>
+
+            <android.support.design.widget.TextInputLayout
+                android:textColor="@android:color/black"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <EditText
+                    android:padding="4dp"
+                    android:layout_margin="10dp"
+                    android:textColorHint="@android:color/black"
+                    android:hint="@string/start_time"
+                    android:textColor="@android:color/black"
+                    android:id="@+id/editStart"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="number"
+                    android:background="@drawable/selector_bg_edit"
+                    />
+            </android.support.design.widget.TextInputLayout>
+
+            <android.support.design.widget.TextInputLayout
+                android:textColor="@android:color/black"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <EditText
+                    android:padding="4dp"
+                    android:layout_margin="10dp"
+                    android:textColorHint="@android:color/black"
+                    android:hint="@string/end_time"
+                    android:textColor="@android:color/black"
+                    android:id="@+id/editEnd"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="number"
+                    android:background="@drawable/selector_bg_edit"
+                    />
+            </android.support.design.widget.TextInputLayout>
+
+            <Button
+                android:id="@+id/idSuggest"
+                android:textColor="@android:color/white"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="30dp"
+                android:foreground="?attr/selectableItemBackground"
+                android:text="@string/suggest_conference"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+        </LinearLayout>
+
+
+    </RelativeLayout>
+
+
+</RelativeLayout>

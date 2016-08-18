@@ -11,7 +11,7 @@ import java.io.Serializable;
  * Created by felip on 15/08/2016.
  */
 @Table(name = "Users")
-public class User extends Model implements Serializable {
+public class User extends Model {
     @Column(name = "Name")
     String name;
     @Column(name = "User_Name", unique = true, onUniqueConflict = Column.ConflictAction.FAIL)

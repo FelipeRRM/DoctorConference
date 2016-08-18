@@ -23,6 +23,7 @@ import android.view.View;
 import android.view.ViewAnimationUtils;
 import android.view.ViewGroup;
 import android.view.ViewPropertyAnimator;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import com.github.javiersantos.bottomdialogs.BottomDialog;
@@ -156,6 +157,17 @@ public class Geral {
             return null;
         }
 
+    }
+
+    public static boolean testEmptyEditText(String errorMessage, EditText... editTexts){
+        for(EditText editText:editTexts) {
+            if (editText.getText().toString() == null || editText.getText().toString().isEmpty()) {
+                editText.setError(errorMessage);
+                editText.requestFocus();
+                return true;
+            }
+        }
+        return false;
     }
 
     public static String getDataBarrada(String input){

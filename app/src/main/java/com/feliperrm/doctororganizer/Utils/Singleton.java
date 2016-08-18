@@ -27,7 +27,10 @@ public class Singleton {
     }
 
     public void setLoggedUser(User loggedUser) {
-        Geral.salvarSharedPreference(MyApp.getContext(), LOGGED_USER_ID_KEY, String.valueOf(loggedUser.getId()));
+        if(loggedUser!=null)
+            Geral.salvarSharedPreference(MyApp.getContext(), LOGGED_USER_ID_KEY, String.valueOf(loggedUser.getId()));
+        else
+            Geral.salvarSharedPreference(MyApp.getContext(), LOGGED_USER_ID_KEY, String.valueOf(NO_USER_INT));
         this.loggedUser = loggedUser;
     }
 

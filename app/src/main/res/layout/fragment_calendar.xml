@@ -7,13 +7,37 @@
     android:fillViewport="true"
     >
 
+
     <LinearLayout
+        android:visibility="visible"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
         >
 
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/loaderLayout">
+
+            <ProgressBar
+                android:layout_centerInParent="true"
+                style="@android:style/Widget.DeviceDefault.ProgressBar.Large"
+                android:id="@+id/progressBar"
+                android:layout_width="80dp"
+                android:layout_height="80dp" />
+
+        </RelativeLayout>
+
     <LinearLayout
+        android:visibility="gone"
+        android:id="@+id/parentLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        >
+
+        <LinearLayout
         android:elevation="2dp"
         android:id="@+id/calendarTopBar"
         android:orientation="horizontal"
@@ -54,6 +78,7 @@
 
 
     <com.p_v.flexiblecalendar.FlexibleCalendarView
+        android:visibility="visible"
         android:elevation="2dp"
         android:id="@+id/calendarView"
         android:background="@android:color/white"
@@ -62,8 +87,11 @@
         />
 
         <TextView
+            android:layout_marginBottom="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginLeft="10dp"
             android:id="@+id/selectedDateTxt"
-            android:layout_marginTop="5dp"
+            android:layout_marginTop="10dp"
             android:gravity="center"
             android:layout_gravity="center"
             android:layout_width="match_parent"
@@ -76,6 +104,20 @@
             android:id="@+id/recyclerViewConferencesCalendar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
+
+        <Button
+            android:id="@+id/idSuggest"
+            android:textColor="@android:color/white"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="20dp"
+            android:foreground="?attr/selectableItemBackground"
+            android:text="@string/suggest_conference"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        </LinearLayout>
 
 </LinearLayout>
 

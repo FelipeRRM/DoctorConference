@@ -12,7 +12,7 @@ import java.util.List;
  * Created by felip on 15/08/2016.
  */
 @Table(name = "Participants")
-public class Participants extends Model implements Serializable {
+public class Participants extends Model {
 
     @Column(name = "Conference")
     Conference conference;

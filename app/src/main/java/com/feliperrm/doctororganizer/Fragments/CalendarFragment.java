@@ -1,7 +1,9 @@
 package com.feliperrm.doctororganizer.Fragments;
 
 
+import android.graphics.PorterDuff;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -12,9 +14,13 @@ import android.widget.Button;
 import android.widget.CalendarView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.feliperrm.doctororganizer.Activities.MainActivity;
+import com.feliperrm.doctororganizer.Adapters.ConferenceCalendarAdapter;
+import com.feliperrm.doctororganizer.Models.Conference;
 import com.feliperrm.doctororganizer.R;
 import com.feliperrm.doctororganizer.Utils.Geral;
 import com.p_v.flexiblecalendar.FlexibleCalendarView;
@@ -39,6 +45,11 @@ public class CalendarFragment extends BaseFragment {
     LinearLayout calendarTopBar;
     RecyclerView recyclerView;
     TextView selectedDateTxt;
+    Button suggest;
+    LinearLayout parentLayout;
+    RelativeLayout loaderLayout;
+    int day, month, year;
+    ProgressBar progressBar;
 
     public CalendarFragment() {
         // Required empty public constructor
@@ -63,11 +74,30 @@ public class CalendarFragment extends BaseFragment {
         calendarTopBar = (LinearLayout) v.findViewById(R.id.calendarTopBar);
         recyclerView = (RecyclerView) v.findViewById(R.id.recyclerViewConferencesCalendar);
         selectedDateTxt = (TextView) v.findViewById(R.id.selectedDateTxt);
+        suggest = (Button) v.findViewById(R.id.idSuggest);
+        parentLayout = (LinearLayout) v.findViewById(R.id.parentLayout);
+        loaderLayout = (RelativeLayout) v.findViewById(R.id.loaderLayout);
+        progressBar = (ProgressBar) v.findViewById(R.id.progressBar);
     }
 
-    private void setUpViews(){
+    public void setUpViews(){
+        progressBar.getIndeterminateDrawable().setColorFilter(MainActivity.TAB1_COLOR, PorterDuff.Mode.MULTIPLY);
         customizeCalendar();
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext(),LinearLayoutManager.VERTICAL, false));
+        suggest.setBackgroundColor(MainActivity.TAB1_COLOR);
+        suggest.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                CreateEventFragment.newInstance(day,month,year).show(getFragmentManager(), null);
+            }
+        });
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                parentLayout.setVisibility(View.VISIBLE);
+                loaderLayout.setVisibility(View.GONE);
+            }
+        },800);
     }
 
     private void customizeCalendar(){
@@ -137,11 +167,35 @@ public class CalendarFragment extends BaseFragment {
         calendarView.setOnDateClickListener(new FlexibleCalendarView.OnDateClickListener() {
             @Override
             public void onDateClick(int year, int month, int day) {
+                CalendarFragment.this.year = year;
+                CalendarFragment.this.month = month;
+                CalendarFragment.this.day = day;
+
                 selectedDateTxt.setText(getString(R.string.conferences_for) + " " + Geral.getMonth(month) + " "+ day + ", " +  year);
+                selectedDateTxt.setTextSize(15);
+                suggest.setText(getString(R.string.suggest_conference) + " for " + Geral.getMonth(month) + " " + day + ", " + year);
+                List<Conference> conferences = Conference.getConferences(day,month,year);
+                if(conferences!=null && conferences.size()>0) {
+                    recyclerView.setAdapter(new ConferenceCalendarAdapter(getContext(), conferences));
+                    recyclerView.setVisibility(View.VISIBLE);
+                }
+                else {
+                    selectedDateTxt.setText(getString(R.string.no_conferences_for) + " " + Geral.getMonth(month) + " " + day + ", " + year);
+                    selectedDateTxt.setTextSize(13);
+                    recyclerView.setVisibility(View.GONE);
+                }
+            }
+        });
+
+        calendarView.setEventDataProvider(new FlexibleCalendarView.EventDataProvider() {
+            @Override
+            public List<? extends Event> getEventsForTheDay(int year, int month, int day) {
+                return Conference.getConferences(day,month,year);
             }
         });
 
         calendarView.onDateClick(new SelectedDateItem(Geral.getTodayYear(), Geral.getTodayMonth(), Geral.getDayOfMonth()));
+
 
     }
 

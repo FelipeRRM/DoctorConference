@@ -4,19 +4,14 @@ import com.activeandroid.Model;
 import com.activeandroid.annotation.Column;
 import com.activeandroid.annotation.Table;
 import com.activeandroid.query.Select;
-import com.feliperrm.doctororganizer.Activities.MainActivity;
-import com.feliperrm.doctororganizer.R;
-import com.p_v.flexiblecalendar.entity.Event;
 
-import java.io.Serializable;
 import java.util.List;
 
 /**
- * Created by felip on 15/08/2016.
+ * Created by felip on 17/08/2016.
  */
-@Table(name = "Conferences")
-public class Conference extends Model implements Event{
-
+@Table(name = "Suggestions")
+public class Suggestion extends Model {
 
     @Column(name = "Subject")
     String subject;
@@ -95,25 +90,23 @@ public class Conference extends Model implements Event{
         this.end = end;
     }
 
-    public Conference(){
+    public Suggestion(){
         super();
     }
 
-    public static List<Conference> getConferences(int month){
-        return new Select().from(Conference.class).where("Month = ?", month).execute();
+    public static List<Suggestion> getSuggestion(){
+        return new Select().from(Suggestion.class).execute();
     }
 
-    public static List<Conference> getConferences(int day, int month, int year){
-        return new Select().from(Conference.class)
+    public static List<Suggestion> getSuggestion(int month){
+        return new Select().from(Suggestion.class).where("Month = ?", month).execute();
+    }
+
+    public static List<Suggestion> getSuggestion(int day, int month, int year){
+        return new Select().from(Suggestion.class)
                 .where("Day = ?", day)
                 .where("Month = ?", month)
                 .where("Year = ?", year)
                 .execute();
-    }
-
-
-    @Override
-    public int getColor() {
-        return R.color.colorPrimary;
     }
 }

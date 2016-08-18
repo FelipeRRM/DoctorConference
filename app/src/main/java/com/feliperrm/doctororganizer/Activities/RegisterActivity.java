@@ -76,7 +76,7 @@ public class RegisterActivity extends BaseActivity {
                     etConfirmPassword.setError(getString(R.string.cant_be_empty));
                     etConfirmPassword.requestFocus();
                 }
-                else if(!etConfirmPassword.getText().toString().equals(etConfirmPassword.getText().toString())){
+                else if(!etPassword.getText().toString().equals(etConfirmPassword.getText().toString())){
                     etConfirmPassword.setError(getString(R.string.pwd_dont_match));
                     etConfirmPassword.requestFocus();
                 }
@@ -84,6 +84,7 @@ public class RegisterActivity extends BaseActivity {
                     User user = User.getUser(etUsername.getText().toString());
                     if(user==null) {
                         user = new User();
+                        user.setAdmin(false);
                         user.setUserName(etUsername.getText().toString());
                         user.setPassword(Geral.toMD5(etPassword.getText().toString()));
                         user.save();
